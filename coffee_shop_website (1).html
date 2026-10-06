@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BREW HAVEN — Больше, чем просто кофе</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display for headings & Inter for clean body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            950: '#0d0a08',
+                            900: '#17110e',
+                            800: '#221915',
+                            700: '#33241e',
+                            600: '#4a352c',
+                            500: '#735244',
+                            400: '#a68272',
+                            300: '#d1b8ab',
+                        },
+                        amberGold: {
+                            DEFAULT: '#d4af37',
+                            light: '#f3e5ab',
+                            dark: '#aa8c2c'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0a08;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #33241e;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #735244;
+        }
+        .hero-bg {
+            background: linear-gradient(to bottom, rgba(13, 10, 8, 0.75), rgba(13, 10, 8, 0.95)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+        }
+        .about-bg {
+            background: linear-gradient(to right, rgba(23, 17, 14, 0.95), rgba(23, 17, 14, 0.8)), url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+        }
+    </style>
+</head>
+<body class="bg-coffee-950 text-coffee-300 font-sans antialiased selection:bg-amberGold selection:text-coffee-950">
+
+    <!-- Header / Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-coffee-950/80 backdrop-blur-md border-b border-coffee-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-full bg-amberGold/20 border border-amberGold/50 flex items-center justify-center text-amberGold group-hover:bg-amberGold group-hover:text-coffee-950 transition-all duration-300">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <span class="font-serif text-2xl tracking-wider text-white font-bold">BREW HAVEN</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#hero" class="text-white hover:text-amberGold transition-colors">Главная</a>
+                <a href="#features" class="hover:text-amberGold transition-colors">Почему мы</a>
+                <a href="#menu" class="hover:text-amberGold transition-colors">Меню</a>
+                <a href="#about" class="hover:text-amberGold transition-colors">О нас</a>
+                <a href="#offers" class="hover:text-amberGold transition-colors">Акции</a>
+                <a href="#contacts" class="hover:text-amberGold transition-colors">Контакты</a>
+            </nav>
+
+            <div class="hidden md:flex items-center gap-4">
+                <button onclick="openModal('bookingModal')" class="px-5 py-2.5 rounded-full bg-amberGold text-coffee-950 font-semibold text-sm hover:bg-amberGold-light transition-all shadow-lg shadow-amberGold/10 hover:shadow-amberGold/25 transform hover:-translate-y-0.5">
+                    Забронировать стол
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-white text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-coffee-900 border-b border-coffee-800 px-6 py-6 space-y-4 animate-fadeIn">
+            <a href="#hero" class="block text-lg text-white hover:text-amberGold">Главная</a>
+            <a href="#features" class="block text-lg hover:text-amberGold">Почему мы</a>
+            <a href="#menu" class="block text-lg hover:text-amberGold">Меню</a>
+            <a href="#about" class="block text-lg hover:text-amberGold">О нас</a>
+            <a href="#offers" class="block text-lg hover:text-amberGold">Акции</a>
+            <a href="#contacts" class="block text-lg hover:text-amberGold">Контакты</a>
+            <div class="pt-4">
+                <button onclick="openModal('bookingModal')" class="w-full py-3 rounded-full bg-amberGold text-coffee-900 font-semibold text-center">
+                    Забронировать стол
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 1. Hero Block -->
+    <section id="hero" class="relative min-h-screen hero-bg flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto text-center space-y-8 z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-coffee-800/80 border border-coffee-700/60 backdrop-blur-sm text-amberGold text-xs sm:text-sm tracking-widest uppercase animate-pulse">
+                <i class="fa-solid fa-sparkles"></i> Specialty Coffee Roasters
+            </div>
+            
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-none">
+                Больше, чем <br><span class="italic text-amberGold font-normal">просто кофе</span>
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-lg sm:text-xl text-coffee-300 font-light leading-relaxed">
+                Обжариваем зерна вручную малыми партиями. Только свежий кофе, авторские рецепты, мягкий свет и абсолютный комфорт.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="#menu" class="w-full sm:w-auto px-8 py-4 rounded-full bg-amberGold text-coffee-950 font-semibold hover:bg-amberGold-light transition-all shadow-xl shadow-amberGold/20 transform hover:-translate-y-1 text-center">
+                    Смотреть меню
+                </a>
+                <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-full bg-coffee-800/80 hover:bg-coffee-700 text-white font-medium border border-coffee-700 transition-all text-center">
+                    Наша история
+                </a>
+            </div>
+
+            <!-- Quick badges under hero -->
+            <div class="pt-12 grid grid-cols-2 md:grid-cols-3 gap-6 max-w-xl mx-auto border-t border-coffee-800/80 text-center">
+                <div class="space-y-1">
+                    <p class="font-serif text-2xl text-white font-bold">100%</p>
+                    <p class="text-xs text-coffee-400 uppercase tracking-wider">Арабика спешелти</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="font-serif text-2xl text-white font-bold">15 лет</p>
+                    <p class="text-xs text-coffee-400 uppercase tracking-wider">Опыта обжарки</p>
+                </div>
+                <div class="col-span-2 md:col-span-1 space-y-1">
+                    <p class="font-serif text-2xl text-white font-bold">50+</p>
+                    <p class="text-xs text-coffee-400 uppercase tracking-wider">Рецептов напитков</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Features (Why Us?) -->
+    <section id="features" class="py-24 bg-coffee-900 border-y border-coffee-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <p class="text-amberGold uppercase tracking-widest text-xs font-semibold">Наши преимущества</p>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Почему выбирают Brew Haven?</h2>
+                <p class="text-coffee-400">Мы уделяем внимание каждой детали — от зерна на ферме до чашки в вашей руке.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div class="p-8 rounded-2xl bg-coffee-950/60 border border-coffee-800/80 hover:border-amberGold/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-amberGold/10 text-amberGold flex items-center justify-center text-2xl mb-6 group-hover:bg-amberGold group-hover:text-coffee-950 transition-all">
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl font-bold text-white mb-2">15 лет</h3>
+                    <p class="text-sm font-semibold text-amberGold uppercase tracking-wider mb-3">Опыта в обжарке</p>
+                    <p class="text-sm text-coffee-400 leading-relaxed">Создаем уникальные профили вкуса, раскрывая весь потенциал каждого зерна.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-8 rounded-2xl bg-coffee-950/60 border border-coffee-800/80 hover:border-amberGold/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-amberGold/10 text-amberGold flex items-center justify-center text-2xl mb-6 group-hover:bg-amberGold group-hover:text-coffee-950 transition-all">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl font-bold text-white mb-2">100%</h3>
+                    <p class="text-sm font-semibold text-amberGold uppercase tracking-wider mb-3">Спешелти арабика</p>
+                    <p class="text-sm text-coffee-400 leading-relaxed">Отборные зерна с лучших плантаций мира с сертификацией высокого качества.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-8 rounded-2xl bg-coffee-950/60 border border-coffee-800/80 hover:border-amberGold/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-amberGold/10 text-amberGold flex items-center justify-center text-2xl mb-6 group-hover:bg-amberGold group-hover:text-coffee-950 transition-all">
+                        <i class="fa-solid fa-mug-saucer"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl font-bold text-white mb-2">50+</h3>
+                    <p class="text-sm font-semibold text-amberGold uppercase tracking-wider mb-3">Авторских рецептов</p>
+                    <p class="text-sm text-coffee-400 leading-relaxed">Классика и смелые сезонные миксы, созданные нашими бариста.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="p-8 rounded-2xl bg-coffee-950/60 border border-coffee-800/80 hover:border-amberGold/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-amberGold/10 text-amberGold flex items-center justify-center text-2xl mb-6 group-hover:bg-amberGold group-hover:text-coffee-950 transition-all">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl font-bold text-white mb-2">10 мин</h3>
+                    <p class="text-sm font-semibold text-amberGold uppercase tracking-wider mb-3">Скорость подачи</p>
+                    <p class="text-sm text-coffee-400 leading-relaxed">Быстрое приготовление заказов с собой без компромиссов по качеству.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Assortment / Menu -->
+    <section id="menu" class="py-24 bg-coffee-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div class="space-y-4">
+                    <p class="text-amberGold uppercase tracking-widest text-xs font-semibold">Наше меню</p>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Избранное из меню</h2>
+                </div>
+                <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0">
+                    <button onclick="filterMenu('all')" class="menu-tab px-5 py-2.5 rounded-full bg-amberGold text-coffee-950 font-medium text-sm transition-all whitespace-nowrap">Все</button>
+                    <button onclick="filterMenu('coffee')" class="menu-tab px-5 py-2.5 rounded-full bg-coffee-900 hover:bg-coffee-800 text-white font-medium text-sm transition-all whitespace-nowrap">Кофе</button>
+                    <button onclick="filterMenu('bakery')" class="menu-tab px-5 py-2.5 rounded-full bg-coffee-900 hover:bg-coffee-800 text-white font-medium text-sm transition-all whitespace-nowrap">Выпечка и еда</button>
+                </div>
+            </div>
+
+            <!-- Menu Grid -->
+            <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Item 1 -->
+                <div class="menu-item coffee group rounded-2xl bg-coffee-900/80 border border-coffee-800 overflow-hidden hover:border-amberGold/50 transition-all duration-300 flex flex-col">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=800&auto=format&fit=crop" alt="Iced Caramel Latte" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/221915/d4af37?text=Coffee'">
+                        <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-coffee-950/80 backdrop-blur-md text-amberGold text-xs font-semibold">
+                            199 ₽
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-white mb-2">Iced Caramel Latte</h3>
+                            <p class="text-sm text-coffee-400">Сливочный эспрессо с карамелью, льдом и прохладным молоком.</p>
+                        </div>
+                        <button onclick="openOrderModal('Iced Caramel Latte', '199 ₽')" class="w-full py-2.5 rounded-xl bg-coffee-800 hover:bg-amberGold hover:text-coffee-950 text-white font-medium text-sm transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-shopping"></i> Заказать
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="menu-item coffee group rounded-2xl bg-coffee-900/80 border border-coffee-800 overflow-hidden hover:border-amberGold/50 transition-all duration-300 flex flex-col">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=800&auto=format&fit=crop" alt="Classic Latte" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/221915/d4af37?text=Coffee'">
+                        <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-coffee-950/80 backdrop-blur-md text-amberGold text-xs font-semibold">
+                            169 ₽
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-white mb-2">Classic Latte</h3>
+                            <p class="text-sm text-coffee-400">Классический капучино с нежной микропеной и бархатным вкусом.</p>
+                        </div>
+                        <button onclick="openOrderModal('Classic Latte', '169 ₽')" class="w-full py-2.5 rounded-xl bg-coffee-800 hover:bg-amberGold hover:text-coffee-950 text-white font-medium text-sm transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-shopping"></i> Заказать
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="menu-item bakery group rounded-2xl bg-coffee-900/80 border border-coffee-800 overflow-hidden hover:border-amberGold/50 transition-all duration-300 flex flex-col">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?q=80&w=800&auto=format&fit=crop" alt="Avocado Toast" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/221915/d4af37?text=Toast'">
+                        <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-coffee-950/80 backdrop-blur-md text-amberGold text-xs font-semibold">
+                            349 ₽
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-white mb-2">Avocado Toast</h3>
+                            <p class="text-sm text-coffee-400">Свежий хрустящий хлеб на закваске, спелое авокадо и специи.</p>
+                        </div>
+                        <button onclick="openOrderModal('Avocado Toast', '349 ₽')" class="w-full py-2.5 rounded-xl bg-coffee-800 hover:bg-amberGold hover:text-coffee-950 text-white font-medium text-sm transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-shopping"></i> Заказать
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="menu-item bakery group rounded-2xl bg-coffee-900/80 border border-coffee-800 overflow-hidden hover:border-amberGold/50 transition-all duration-300 flex flex-col">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800&auto=format&fit=crop" alt="Almond Croissant" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/221915/d4af37?text=Croissant'">
+                        <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-coffee-950/80 backdrop-blur-md text-amberGold text-xs font-semibold">
+                            219 ₽
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-white mb-2">Almond Croissant</h3>
+                            <p class="text-sm text-coffee-400">Слоистый хрустящий круассан с миндальным кремом и лепестками.</p>
+                        </div>
+                        <button onclick="openOrderModal('Almond Croissant', '219 ₽')" class="w-full py-2.5 rounded-xl bg-coffee-800 hover:bg-amberGold hover:text-coffee-950 text-white font-medium text-sm transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-shopping"></i> Заказать
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Full Menu Button -->
+            <div class="text-center mt-12">
+                <button onclick="openModal('menuModal')" class="px-8 py-4 rounded-full bg-coffee-900 border border-coffee-700 hover:border-amberGold text-white font-semibold hover:text-amberGold transition-all">
+                    Смотреть всё меню
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Cozy Atmosphere (About Us) -->
+    <section id="about" class="py-24 about-bg relative border-y border-coffee-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="space-y-6">
+                    <p class="text-amberGold uppercase tracking-widest text-xs font-semibold">О нас</p>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white leading-tight">Пространство для своих и моментов покоя</h2>
+                    <p class="text-coffee-300 text-lg leading-relaxed font-light">
+                        Место, где время замедляется. Мягкий свет, любимая музыка и аромат свежеобжаренных зерен. Мы создавали кофейню не просто для того, чтобы пить кофе, а чтобы создавать эмоции и уютное пространство для встреч с друзьями или работы в тишине.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="border-l-2 border-amberGold pl-4">
+                            <p class="font-serif text-xl font-bold text-white">Уютный свет</p>
+                            <p class="text-sm text-coffee-400">Теплая атмосфера круглый год</p>
+                        </div>
+                        <div class="border-l-2 border-amberGold pl-4">
+                            <p class="font-serif text-xl font-bold text-white">Виниловый звук</p>
+                            <p class="text-sm text-coffee-400">Приятная музыка на фоне</p>
+                        </div>
+                    </div>
+                    <div class="pt-4">
+                        <button onclick="openModal('storyModal')" class="px-8 py-3.5 rounded-full bg-amberGold text-coffee-950 font-semibold hover:bg-amberGold-light transition-all shadow-lg shadow-amberGold/10">
+                            Наша история
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=600&auto=format&fit=crop" alt="Coffee shop interior" class="rounded-2xl object-cover h-64 w-full border border-coffee-800 shadow-xl" onerror="this.src='https://placehold.co/400x500/221915/d4af37?text=Interior'">
+                        <img src="https://images.unsplash.com/photo-1507133754945-2bc33604f51e?q=80&w=600&auto=format&fit=crop" alt="Coffee beans" class="rounded-2xl object-cover h-48 w-full border border-coffee-800 shadow-xl" onerror="this.src='https://placehold.co/400x300/221915/d4af37?text=Beans'">
+                    </div>
+                    <div class="space-y-4 pt-8">
+                        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=600&auto=format&fit=crop" alt="Barista at work" class="rounded-2xl object-cover h-48 w-full border border-coffee-800 shadow-xl" onerror="this.src='https://placehold.co/400x300/221915/d4af37?text=Barista'">
+                        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=600&auto=format&fit=crop" alt="Coffee cup" class="rounded-2xl object-cover h-64 w-full border border-coffee-800 shadow-xl" onerror="this.src='https://placehold.co/400x500/221915/d4af37?text=Coffee'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Special Offers & Promos -->
+    <section id="offers" class="py-24 bg-coffee-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <p class="text-amberGold uppercase tracking-widest text-xs font-semibold">Специальные предложения</p>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Акции и бонусы</h2>
+                <p class="text-coffee-400">Делаем ваши визиты еще приятнее и выгоднее каждый день.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Offer 1 -->
+                <div class="relative rounded-3xl p-8 bg-gradient-to-br from-coffee-800 to-coffee-950 border border-coffee-700/80 overflow-hidden group hover:border-amberGold transition-all shadow-xl">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amberGold/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                    <div class="w-12 h-12 rounded-2xl bg-amberGold text-coffee-950 flex items-center justify-center font-bold text-xl mb-6">
+                        -20%
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-white mb-3">Счастливые часы</h3>
+                    <p class="text-coffee-300 text-sm leading-relaxed mb-6">Скидка 20% на второй авторский напиток в чеке каждый будний день с 15:00 до 18:00.</p>
+                    <span class="inline-flex items-center gap-2 text-amberGold text-sm font-semibold">
+                        Узнать подробнее <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </span>
+                </div>
+
+                <!-- Offer 2 -->
+                <div class="relative rounded-3xl p-8 bg-gradient-to-br from-coffee-800 to-coffee-950 border border-coffee-700/80 overflow-hidden group hover:border-amberGold transition-all shadow-xl">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amberGold/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                    <div class="w-12 h-12 rounded-2xl bg-amberGold text-coffee-950 flex items-center justify-center font-bold text-xl mb-6">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-white mb-3">Каждая 6-я чашка</h3>
+                    <p class="text-coffee-300 text-sm leading-relaxed mb-6">Установите нашу карту лояльности и получайте каждую шестую чашку любимого кофе абсолютно в подарок.</p>
+                    <span class="inline-flex items-center gap-2 text-amberGold text-sm font-semibold">
+                        Получить карту <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </span>
+                </div>
+
+                <!-- Offer 3 -->
+                <div class="relative rounded-3xl p-8 bg-gradient-to-br from-coffee-800 to-coffee-950 border border-coffee-700/80 overflow-hidden group hover:border-amberGold transition-all shadow-xl">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amberGold/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                    <div class="w-12 h-12 rounded-2xl bg-amberGold text-coffee-950 flex items-center justify-center font-bold text-xl mb-6">
+                        -30%
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-white mb-3">Утренний комплимент</h3>
+                    <p class="text-coffee-300 text-sm leading-relaxed mb-6">Свежая выпечка со скидкой 30% при покупке любого кофе с открытием кофейни до 10:00.</p>
+                    <span class="inline-flex items-center gap-2 text-amberGold text-sm font-semibold">
+                        Заглянуть утром <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Contacts & Final CTA -->
+    <section id="contacts" class="py-24 bg-coffee-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Info Column -->
+                <div class="space-y-8">
+                    <div>
+                        <p class="text-amberGold uppercase tracking-widest text-xs font-semibold mb-2">Контакты</p>
+                        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Заглядывайте в гости</h2>
+                    </div>
+                    <p class="text-coffee-400">Мы всегда рады видеть вас за чашкой ароматного кофе. Приходите пообщаться, поработать или просто отдохнуть.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-amberGold/10 text-amberGold flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-semibold mb-1">Адрес кофейни</h3>
+                                <p class="text-coffee-400 text-sm">ул. Кофейная, 12, Центр города</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-amberGold/10 text-amberGold flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-semibold mb-1">Часы работы</h3>
+                                <p class="text-coffee-400 text-sm">Пн–Пт: 08:00 – 21:00<br>Сб–Вс: 09:00 – 22:00</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-amberGold/10 text-amberGold flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-semibold mb-1">Телефон для связи</h3>
+                                <p class="text-coffee-400 text-sm">+7 (999) 123-45-67</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 pt-4">
+                        <a href="https://telegram.org" target="_blank" class="w-12 h-12 rounded-full bg-coffee-900 border border-coffee-800 flex items-center justify-center text-white hover:bg-amberGold hover:text-coffee-950 transition-all text-lg">
+                            <i class="fa-brands fa-telegram"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="w-12 h-12 rounded-full bg-coffee-900 border border-coffee-800 flex items-center justify-center text-white hover:bg-amberGold hover:text-coffee-950 transition-all text-lg">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://whatsapp.com" target="_blank" class="w-12 h-12 rounded-full bg-coffee-900 border border-coffee-800 flex items-center justify-center text-white hover:bg-amberGold hover:text-coffee-950 transition-all text-lg">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Form Card Column -->
+                <div class="bg-coffee-900 p-8 sm:p-10 rounded-3xl border border-coffee-800 shadow-2xl relative">
+                    <h3 class="font-serif text-2xl font-bold text-white mb-2">Забронировать столик</h3>
+                    <p class="text-coffee-400 text-sm mb-6">Заполните форму, и мы свяжемся с вами для подтверждения бронирования.</p>
+                    
+                    <form onsubmit="handleBookingSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-coffee-300 uppercase tracking-wider mb-2">Ваше имя</label>
+                            <input type="text" required placeholder="Александр" class="w-full bg-coffee-950 border border-coffee-800 rounded-xl px-4 py-3 text-white placeholder-coffee-600 focus:outline-none focus:border-amberGold transition-colors text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-coffee-300 uppercase tracking-wider mb-2">Номер телефона</label>
+                            <input type="tel" required placeholder="+7 (999) 000-00-00" class="w-full bg-coffee-950 border border-coffee-800 rounded-xl px-4 py-3 text-white placeholder-coffee-600 focus:outline-none focus:border-amberGold transition-colors text-sm">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-coffee-300 uppercase tracking-wider mb-2">Дата</label>
+                                <input type="date" required class="w-full bg-coffee-950 border border-coffee-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amberGold transition-colors text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-coffee-300 uppercase tracking-wider mb-2">Время</label>
+                                <input type="time" required class="w-full bg-coffee-950 border border-coffee-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amberGold transition-colors text-sm">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full py-4 rounded-xl bg-amberGold text-coffee-950 font-semibold hover:bg-amberGold-light transition-all shadow-lg shadow-amberGold/10 mt-2">
+                            Забронировать столик
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Footer -->
+    <footer class="bg-coffee-900 border-t border-coffee-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-amberGold text-coffee-950 flex items-center justify-center font-bold text-sm">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <span class="font-serif text-xl tracking-wider text-white font-bold">BREW HAVEN</span>
+            </div>
+
+            <nav class="flex flex-wrap items-center justify-center gap-6 text-sm text-coffee-400">
+                <a href="#hero" class="hover:text-amberGold transition-colors">Главная</a>
+                <a href="#menu" class="hover:text-amberGold transition-colors">Меню</a>
+                <a href="#about" class="hover:text-amberGold transition-colors">О нас</a>
+                <a href="#offers" class="hover:text-amberGold transition-colors">Акции</a>
+                <a href="#contacts" class="hover:text-amberGold transition-colors">Контакты</a>
+                <a href="#" onclick="openModal('privacyModal'); return false;" class="hover:text-amberGold transition-colors">Политика конфиденциальности</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <p class="text-xs text-coffee-500">© 2026 Brew Haven. Все права защищены.</p>
+                <button onclick="scrollToTop()" class="w-10 h-10 rounded-full bg-coffee-800 hover:bg-amberGold hover:text-coffee-950 text-white transition-all flex items-center justify-center" title="Наверх">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- General Notification / Success Modal -->
+    <div id="notificationModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
+        <div class="bg-coffee-900 border border-coffee-700 rounded-3xl p-8 max-w-md w-full mx-4 text-center space-y-4 shadow-2xl">
+            <div class="w-16 h-16 rounded-full bg-amberGold/20 text-amberGold flex items-center justify-center text-3xl mx-auto">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 id="modalTitle" class="font-serif text-2xl font-bold text-white">Заявка принята!</h3>
+            <p id="modalText" class="text-coffee-300 text-sm">Спасибо! Мы свяжемся с вами в ближайшее время для подтверждения.</p>
+            <button onclick="closeModal('notificationModal')" class="w-full py-3 rounded-xl bg-amberGold text-coffee-950 font-semibold hover:bg-amberGold-light transition-all">
+                Понятно
+            </button>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
+        <div class="bg-coffee-900 border border-coffee-700 rounded-3xl p-8 max-w-lg w-full mx-4 space-y-6 shadow-2xl relative">
+            <button onclick="closeModal('bookingModal')" class="absolute top-6 right-6 text-coffee-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="font-serif text-2xl font-bold text-white">Бронирование столика</h3>
+            <form onsubmit="handleModalBooking(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-coffee-300 uppercase tracking-wider mb-2">Ваше имя</label>
+                    <input type="text" required placeholder="Анна" class="w-full bg-coffee-950 border border-coffee-800 rounded-xl px-4 py-3 text-white placeholder-coffee-600 focus:outline-none focus:border-amberGold text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-coffee-300 uppercase tracking-wider mb-2">Телефон</label>
+                    <input type="tel" required placeholder="+7 (999) 000-00-00" class="w-full bg-coffee-950 border border-coffee-800 rounded-xl px-4 py-3 text-white placeholder-coffee-600 focus:outline-none focus:border-amberGold text-sm">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-coffee-300 uppercase tracking-wider mb-2">Количество гостей</label>
+                        <select class="w-full bg-coffee-950 border border-coffee-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amberGold text-sm">
+                            <option>1 гость</option>
+                            <option selected>2 гостя</option>
+                            <option>3–4 гостя</option>
+                            <option>5+ гостей</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-coffee-300 uppercase tracking-wider mb-2">Время</label>
+                        <input type="time" required class="w-full bg-coffee-950 border border-coffee-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amberGold text-sm">
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-amberGold text-coffee-950 font-semibold hover:bg-amberGold-light transition-all shadow-lg mt-2">
+                    Подтвердить бронь
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Full Menu Modal -->
+    <div id="menuModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
+        <div class="bg-coffee-900 border border-coffee-700 rounded-3xl p-8 max-w-2xl w-full mx-4 space-y-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+            <button onclick="closeModal('menuModal')" class="absolute top-6 right-6 text-coffee-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="font-serif text-2xl font-bold text-white">Полное меню Brew Haven</h3>
+            <div class="space-y-4 text-sm">
+                <div class="border-b border-coffee-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-white">Эспрессо / Ристретто</p>
+                        <p class="text-xs text-coffee-400">Насыщенный шот спешелти зерна</p>
+                    </div>
+                    <span class="text-amberGold font-semibold">139 ₽</span>
+                </div>
+                <div class="border-b border-coffee-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-white">Капучино (Large)</p>
+                        <p class="text-xs text-coffee-400">Двойной эспрессо и взбитое молоко</p>
+                    </div>
+                    <span class="text-amberGold font-semibold">189 ₽</span>
+                </div>
+                <div class="border-b border-coffee-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-white">Раф Лаванда</p>
+                        <p class="text-xs text-coffee-400">Сливки, лавандовый сироп, эспрессо</p>
+                    </div>
+                    <span class="text-amberGold font-semibold">249 ₽</span>
+                </div>
+                <div class="border-b border-coffee-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-white">Матча Латте</p>
+                        <p class="text-xs text-coffee-400">Японская церемониальная матча</p>
+                    </div>
+                    <span class="text-amberGold font-semibold">269 ₽</span>
+                </div>
+                <div class="border-b border-coffee-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-white">Круассан классический</p>
+                        <p class="text-xs text-coffee-400">Французское сливочное тесто</p>
+                    </div>
+                    <span class="text-amberGold font-semibold">169 ₽</span>
+                </div>
+                <div class="border-b border-coffee-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-white">Чизкейк Нью-Йорк</p>
+                        <p class="text-xs text-coffee-400">Нежный творожный десерт</p>
+                    </div>
+                    <span class="text-amberGold font-semibold">299 ₽</span>
+                </div>
+            </div>
+            <button onclick="closeModal('menuModal')" class="w-full py-3 rounded-xl bg-coffee-800 hover:bg-amberGold hover:text-coffee-950 text-white font-medium transition-all">
+                Закрыть меню
+            </button>
+        </div>
+    </div>
+
+    <!-- Story Modal -->
+    <div id="storyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
+        <div class="bg-coffee-900 border border-coffee-700 rounded-3xl p-8 max-w-lg w-full mx-4 space-y-6 shadow-2xl relative">
+            <button onclick="closeModal('storyModal')" class="absolute top-6 right-6 text-coffee-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="font-serif text-2xl font-bold text-white">Наша история</h3>
+            <p class="text-coffee-300 text-sm leading-relaxed">
+                Кофейня Brew Haven родилась в 2011 году из страсти к качественному зерну и уютным пространствам. Мы начинали как небольшая обжарочная студия, а сегодня объединяем тысячи любителей настоящего кофе. Каждое зерно в нашей чашке проходит строгий отбор, чтобы дарить вам незабываемые моменты каждый день.
+            </p>
+            <button onclick="closeModal('storyModal')" class="w-full py-3 rounded-xl bg-amberGold text-coffee-950 font-semibold hover:bg-amberGold-light transition-all">
+                Закрыть
+            </button>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
+        <div class="bg-coffee-900 border border-coffee-700 rounded-3xl p-8 max-w-lg w-full mx-4 space-y-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+            <button onclick="closeModal('privacyModal')" class="absolute top-6 right-6 text-coffee-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="font-serif text-2xl font-bold text-white">Политика конфиденциальности</h3>
+            <p class="text-coffee-300 text-sm leading-relaxed">
+                Мы бережно относимся к вашим персональным данным. Вся информация, оставляемая при бронировании столиков или оформлении заказа, используется исключительно для связи с вами и предоставления качественного сервиса кофейни Brew Haven. Мы не передаем данные третьим лицам.
+            </p>
+            <button onclick="closeModal('privacyModal')" class="w-full py-3 rounded-xl bg-coffee-800 text-white font-medium hover:bg-amberGold hover:text-coffee-950 transition-all">
+                Понятно
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Menu Filtering
+        function filterMenu(category) {
+            const items = document.querySelectorAll('.menu-item');
+            const tabs = document.querySelectorAll('.menu-tab');
+            
+            tabs.forEach(tab => {
+                tab.classList.remove('bg-amberGold', 'text-coffee-950');
+                tab.classList.add('bg-coffee-900', 'text-white');
+            });
+            event.target.classList.remove('bg-coffee-900', 'text-white');
+            event.target.classList.add('bg-amberGold', 'text-coffee-950');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        function openOrderModal(itemName, itemPrice) {
+            document.getElementById('modalTitle').innerText = 'Заказ: ' + itemName;
+            document.getElementById('modalText').innerText = 'Вы выбрали ' + itemName + ' (' + itemPrice + '). Наш бариста уже готов приступить к приготовлению!';
+            openModal('notificationModal');
+        }
+
+        function handleBookingSubmit(e) {
+            e.preventDefault();
+            document.getElementById('modalTitle').innerText = 'Столик успешно забронирован!';
+            document.getElementById('modalText').innerText = 'Мы ждем вас в Brew Haven. Администратор свяжется с вами для подтверждения деталей.';
+            openModal('notificationModal');
+            e.target.reset();
+        }
+
+        function handleModalBooking(e) {
+            e.preventDefault();
+            closeModal('bookingModal');
+            document.getElementById('modalTitle').innerText = 'Бронь подтверждена!';
+            document.getElementById('modalText').innerText = 'Ваш столик зарезервирован. Ждем в гости!';
+            openModal('notificationModal');
+            e.target.reset();
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            ['notificationModal', 'bookingModal', 'menuModal', 'storyModal', 'privacyModal'].forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    closeModal(modalId);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
